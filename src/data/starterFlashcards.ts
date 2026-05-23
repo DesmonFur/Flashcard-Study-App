@@ -1,4 +1,4 @@
-import type { Flashcard } from "../types/index";
+import type { Flashcard } from "../types";
 
 export const starterFlashcards: Flashcard[] = [
   {
