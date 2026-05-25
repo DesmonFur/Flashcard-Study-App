@@ -10,7 +10,8 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  color: black;
+  color: white;
+  background-color: slategray;
 }
 
 body {

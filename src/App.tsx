@@ -44,7 +44,7 @@ function App() {
   if (isSessionComplete)
     return (
       <>
-        <h1 className="text-3xl font-bold text-blue-500">Study complete!</h1>
+        <h1 className="text-3xl font-bold">Study complete!</h1>
         <StudyStats
           correctCount={correctCount}
           wrongCount={wrongCount}
@@ -57,7 +57,7 @@ function App() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-blue-500">Flashcard Study App</h1>
+      <h1 className="text-3xl font-bold ">Flashcard Study App</h1>
 
       <ProgressBar currentIndex={currentIndex} totalCards={flashcards.length} />
 

@@ -3,7 +3,11 @@ import type { JSX } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { Button } from "./ui/Button";
+import { Input } from "./ui/Input";
+import { Select } from "./ui/Select";
+import { Label } from "./ui/Label";
+import { FormError } from "./ui/FormError";
 type FlashcardFormProps = {
   onAdd: (flashcard: Flashcard) => void;
 };
@@ -47,64 +51,43 @@ export function FlashcardForm({ onAdd }: FlashcardFormProps): JSX.Element {
       className="flex w-full max-w-md flex-col gap-1 mx-auto "
     >
       <h2 className="text-xl font-semibold">Add Flashcard</h2>
-      <div>
-        <label htmlFor="question">Question:</label>
-        <input
-          id="question"
-          {...register("question")}
-          className="w-full rounded-lg border border-slate-600 bg-slate-800 px-4 py-2 text-white focus:border-emerald-500 focus:outline-none"
-        />
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="question">Question:</Label>
+        <Input id="question" {...register("question")} />
         {errors.question && (
-          <p className="text-red-600">{errors.question.message}</p>
+          <FormError message={errors.question.message}></FormError>
         )}
       </div>
 
-      <div>
-        <label htmlFor="answer">Answer:</label>
-        <input
-          id="answer"
-          {...register("answer")}
-          className="w-full rounded-lg border border-slate-600 bg-slate-800 px-4 py-2 text-white focus:border-emerald-500 focus:outline-none"
-        />
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="answer">Answer:</Label>
+        <Input id="answer" {...register("answer")} />
         {errors.answer && (
-          <p className="text-red-600">{errors.answer.message}</p>
+          <FormError message={errors.answer.message}></FormError>
         )}
       </div>
 
-      <div>
-        <label htmlFor="category">Category:</label>
-        <input
-          id="category"
-          {...register("category")}
-          className="w-full rounded-lg border border-slate-600 bg-slate-800 px-4 py-2 text-white focus:border-emerald-500 focus:outline-none"
-        />
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="category">Category:</Label>
+        <Input id="category" {...register("category")} />
         {errors.category && (
-          <p className="text-red-600">{errors.category.message}</p>
+          <FormError message={errors.category.message}></FormError>
         )}
       </div>
 
-      <div>
-        <label htmlFor="difficulty">Difficulty:</label>
-        <select
-          id="difficulty"
-          {...register("difficulty")}
-          className="w-full rounded-lg border border-slate-600 bg-slate-800 px-4 py-2 text-white focus:border-emerald-500 focus:outline-none"
-        >
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="difficulty">Difficulty:</Label>
+        <Select id="difficulty" {...register("difficulty")}>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
-        </select>
+        </Select>
         {errors.difficulty && (
-          <p className="text-red-600">{errors.difficulty.message}</p>
+          <FormError message={errors.difficulty.message}></FormError>
         )}
       </div>
 
-      <button
-        className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-500"
-        type="submit"
-      >
-        Add Card
-      </button>
+      <Button type="submit">Add Card</Button>
     </form>
   );
 }
