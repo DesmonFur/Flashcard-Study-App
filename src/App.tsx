@@ -4,10 +4,13 @@ import type { Flashcard } from "./types";
 import { FlashcardViewer } from "./components/FlashcardViewer";
 import { StudyStats } from "./components/StudyStats";
 import { ProgressBar } from "./components/ProgressBar";
+import { FlashcardForm } from "./components/FlashcardForm";
 import "./App.css";
 
 function App() {
-  const [flashcards] = useState<Flashcard[]>(() => starterFlashcards);
+  const [flashcards, setFlashcards] = useState<Flashcard[]>(
+    () => starterFlashcards,
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
@@ -33,6 +36,10 @@ function App() {
     setCorrectCount(0);
     setWrongCount(0);
     setIsAnswerVisible(false);
+  }
+
+  function handleAdd(flashcard: Flashcard): void {
+    setFlashcards((prev) => [...prev, flashcard]);
   }
   if (isSessionComplete)
     return (
@@ -60,6 +67,7 @@ function App() {
         onRevealAnswer={handleRevealAnswer}
         onAnswer={handleAnswer}
       />
+      <FlashcardForm onAdd={handleAdd} />
     </>
   );
 }
