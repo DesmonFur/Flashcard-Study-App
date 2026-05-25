@@ -1,11 +1,18 @@
 import type { Flashcard } from "../types";
 import type { JSX } from "react";
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/Button";
 import { Input } from "./ui/Input";
-import { Select } from "./ui/Select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/Select";
+
 import { Label } from "./ui/Label";
 import { FormError } from "./ui/FormError";
 type FlashcardFormProps = {
@@ -25,6 +32,7 @@ export function FlashcardForm({ onAdd }: FlashcardFormProps): JSX.Element {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<FlashcardFormValues>({
     resolver: zodResolver(flashcardSchema),
@@ -77,14 +85,26 @@ export function FlashcardForm({ onAdd }: FlashcardFormProps): JSX.Element {
 
       <div className="flex flex-col gap-1">
         <Label htmlFor="difficulty">Difficulty:</Label>
-        <Select id="difficulty" {...register("difficulty")}>
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-        </Select>
-        {errors.difficulty && (
-          <FormError message={errors.difficulty.message}></FormError>
-        )}
+
+        <Controller
+          name="difficulty"
+          control={control}
+          render={({ field }) => (
+            <Select value={field.value} onValueChange={field.onChange}>
+              <SelectTrigger id="difficulty" className="w-full">
+                <SelectValue placeholder="Select difficulty" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectItem value="easy">Easy</SelectItem>
+                <SelectItem value="medium">Medium</SelectItem>
+                <SelectItem value="hard">Hard</SelectItem>
+              </SelectContent>
+            </Select>
+          )}
+        />
+
+        <FormError message={errors.difficulty?.message} />
       </div>
 
       <Button type="submit">Add Card</Button>

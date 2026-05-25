@@ -6,6 +6,7 @@ import { StudyStats } from "./components/StudyStats";
 import { ProgressBar } from "./components/ProgressBar";
 import { FlashcardForm } from "./components/FlashcardForm";
 import "./App.css";
+import { Button } from "./components/ui/Button";
 
 function App() {
   const [flashcards, setFlashcards] = useState<Flashcard[]>(
@@ -50,7 +51,7 @@ function App() {
           wrongCount={wrongCount}
           totalCards={flashcards.length}
         />
-        <button onClick={handleRestart}>Restart Session</button>
+        <Button onClick={handleRestart}>Restart Session</Button>
       </>
     );
   const currentCard = flashcards[currentIndex];

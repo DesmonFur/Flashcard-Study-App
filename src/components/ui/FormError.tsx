@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import type { ComponentProps, JSX } from "react";
 
 type FormErrorProps = ComponentProps<"p"> & {
@@ -12,7 +13,7 @@ export function FormError({
   if (!message) return null;
 
   return (
-    <p className={`text-sm text-red-600 ${className}`} {...props}>
+    <p className={cn("text-sm text-red-600", className)} {...props}>
       {message}
     </p>
   );

@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import type { Flashcard } from "../types";
-
+import { Button } from "./ui/Button";
 type FlashcardViewerProps = {
   card: Flashcard;
   isAnswerVisible: boolean;
@@ -26,12 +26,12 @@ export function FlashcardViewer({
         <div>
           <p>{card.answer}</p>
           <div>
-            <button onClick={() => onAnswer(true)}>Correct</button>
-            <button onClick={() => onAnswer(false)}>Wrong</button>
+            <Button onClick={() => onAnswer(true)}>Correct</Button>
+            <Button onClick={() => onAnswer(false)}>Wrong</Button>
           </div>
         </div>
       ) : (
-        <button onClick={onRevealAnswer}>Reveal Answer</button>
+        <Button onClick={onRevealAnswer}>Reveal Answer</Button>
       )}
     </>
   );
