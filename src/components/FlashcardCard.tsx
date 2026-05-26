@@ -15,12 +15,14 @@ type FlashcardCardProps = {
   isAnswerVisible: boolean;
   onAnswer: (isCorrect: boolean) => void;
   onRevealAnswer: () => void;
+  onDelete: (id: string) => void;
 };
 export function FlashcardCard({
   flashcard,
   onAnswer,
   onRevealAnswer,
   isAnswerVisible,
+  onDelete,
 }: FlashcardCardProps): JSX.Element {
   return (
     <Card className="mx-auto mt-6 mb-6 w-full max-w-2xl">
@@ -36,24 +38,35 @@ export function FlashcardCard({
         )}
         <Badge>{flashcard.category}</Badge>
       </CardContent>
-      <CardFooter className="justify-center">
-        {isAnswerVisible ? (
-          <div className=" flex mx-auto gap-2 ">
-            <Button onClick={() => onAnswer(true)}>Correct</Button>
-            <Button onClick={() => onAnswer(false)} variant="destructive">
-              Wrong
-            </Button>
-          </div>
-        ) : (
+
+      <CardFooter className="grid grid-cols-3 items-center">
+        <div className="justify-self-start">
           <Button
             type="button"
             variant="destructive"
             size="sm"
-            onClick={onRevealAnswer}
+            onClick={() => onDelete(flashcard.id)}
           >
-            Reveal
+            Delete
           </Button>
-        )}
+        </div>
+
+        <div className="justify-self-center">
+          {isAnswerVisible ? (
+            <div className="flex gap-2">
+              <Button onClick={() => onAnswer(true)}>Correct</Button>
+              <Button onClick={() => onAnswer(false)} variant="secondary">
+                Wrong
+              </Button>
+            </div>
+          ) : (
+            <Button type="button" size="sm" onClick={onRevealAnswer}>
+              Reveal
+            </Button>
+          )}
+        </div>
+
+        <div />
       </CardFooter>
     </Card>
   );

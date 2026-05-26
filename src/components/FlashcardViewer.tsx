@@ -6,6 +6,7 @@ type FlashcardViewerProps = {
   isAnswerVisible: boolean;
   onRevealAnswer: () => void;
   onAnswer: (isCorrect: boolean) => void;
+  onDelete: (id: string) => void;
 };
 
 export function FlashcardViewer({
@@ -13,6 +14,7 @@ export function FlashcardViewer({
   isAnswerVisible,
   onRevealAnswer,
   onAnswer,
+  onDelete,
 }: FlashcardViewerProps): JSX.Element {
   return (
     <div className="px-5">
@@ -21,6 +23,7 @@ export function FlashcardViewer({
         onAnswer={onAnswer}
         isAnswerVisible={isAnswerVisible}
         onRevealAnswer={onRevealAnswer}
+        onDelete={onDelete}
       />
     </div>
   );

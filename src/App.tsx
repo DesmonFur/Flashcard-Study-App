@@ -85,6 +85,14 @@ function App() {
     setWrongCount(0);
   }
 
+  function handleDelete(id: string): void {
+    setFlashcards((prev) => prev.filter((card) => card.id !== id));
+    setCurrentIndex(0);
+    setIsAnswerVisible(false);
+    setCorrectCount(0);
+    setWrongCount(0);
+  }
+
   if (flashcards.length === 0 || filteredFlashcards.length === 0) {
     return (
       <div className="p-4">
@@ -150,6 +158,7 @@ function App() {
         isAnswerVisible={isAnswerVisible}
         onRevealAnswer={handleRevealAnswer}
         onAnswer={handleAnswer}
+        onDelete={handleDelete}
       />
       <StudyStats
         correctCount={correctCount}
