@@ -10,10 +10,11 @@ import { Button } from "./components/ui/Button";
 import { EmptyState } from "./components/EmptyState";
 import { CategoryFilter } from "./components/CategoryFilter";
 import { DifficultyFilter } from "./components/DifficultyFilter";
-
+import { useLocalStorage } from "./hooks/useLocalStorage";
 function App() {
-  const [flashcards, setFlashcards] = useState<Flashcard[]>(
-    () => starterFlashcards,
+  const [flashcards, setFlashcards] = useLocalStorage<Flashcard[]>(
+    "flashcards",
+    starterFlashcards,
   );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
@@ -59,7 +60,14 @@ function App() {
   }
 
   function handleAdd(flashcard: Flashcard): void {
-    setFlashcards((prev) => [...prev, flashcard]);
+    const newFlashCard: Flashcard = {
+      id: crypto.randomUUID(),
+      question: flashcard.question,
+      answer: flashcard.answer,
+      category: flashcard.category,
+      difficulty: flashcard.difficulty,
+    };
+    setFlashcards((prev) => [...prev, newFlashCard]);
   }
 
   function handleCategoryFilter(category: string): void {
