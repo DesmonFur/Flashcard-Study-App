@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { starterFlashcards } from "./data/starterFlashcards";
-import type { Flashcard } from "./types";
+import type { Flashcard, DifficultyFilterValue } from "./types";
 import { FlashcardViewer } from "./components/FlashcardViewer";
 import { StudyStats } from "./components/StudyStats";
 import { ProgressBar } from "./components/ProgressBar";
@@ -9,6 +9,7 @@ import "./App.css";
 import { Button } from "./components/ui/Button";
 import { EmptyState } from "./components/EmptyState";
 import { CategoryFilter } from "./components/CategoryFilter";
+import { DifficultyFilter } from "./components/DifficultyFilter";
 
 function App() {
   const [flashcards, setFlashcards] = useState<Flashcard[]>(
@@ -18,17 +19,23 @@ function App() {
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [wrongCount, setWrongCount] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState("all");
-
+  const [selectedCategory, setSelectedCategory] = useState("All Categories");
+  const [selectedDifficulty, setSelectedDifficulty] =
+    useState<DifficultyFilterValue>("all");
   const categories = [
     "All Categories",
     ...new Set(flashcards.map((card) => card.category)),
   ];
-  const filteredFlashcards =
-    selectedCategory === "All Categories"
-      ? flashcards
-      : flashcards.filter((card) => card.category === selectedCategory);
+  const filteredFlashcards = flashcards.filter((card) => {
+    const matchesCategory =
+      selectedCategory === "All Categories" ||
+      card.category === selectedCategory;
 
+    const matchesDifficulty =
+      selectedDifficulty === "all" || card.difficulty === selectedDifficulty;
+
+    return matchesCategory && matchesDifficulty;
+  });
   const isSessionComplete = currentIndex >= filteredFlashcards.length;
   const handleAnswer = (isCorrect: boolean): void => {
     if (isCorrect) {
@@ -62,21 +69,39 @@ function App() {
     setCorrectCount(0);
     setWrongCount(0);
   }
+  function handleDifficultyFilter(difficulty: DifficultyFilterValue): void {
+    setSelectedDifficulty(difficulty);
+    setCurrentIndex(0);
+    setIsAnswerVisible(false);
+    setCorrectCount(0);
+    setWrongCount(0);
+  }
 
   if (flashcards.length === 0 || filteredFlashcards.length === 0) {
     return (
-      <>
+      <div className="p-4">
         <EmptyState
           title="No flashcards yet"
           description="Add your first flashcard to start studying."
         />
+        <div className="flex flex-col justify-center items-center sm:flex-row gap-5  mt-10 mb-10 max-w-2xl mx-auto">
+          <CategoryFilter
+            categories={categories}
+            category={selectedCategory}
+            onCatChange={handleCategoryFilter}
+          />
+          <DifficultyFilter
+            difficulty={selectedDifficulty}
+            onDiffChange={handleDifficultyFilter}
+          />
+        </div>
         <FlashcardForm onAdd={handleAdd} />
-      </>
+      </div>
     );
   }
   if (isSessionComplete)
     return (
-      <div>
+      <div className="p-4">
         <h1 className="text-3xl font-bold mt-6">Study complete!</h1>
         <StudyStats
           correctCount={correctCount}
@@ -94,18 +119,24 @@ function App() {
   const currentCard = filteredFlashcards[currentIndex];
 
   return (
-    <>
+    <div className="p-4">
       <h1 className="text-3xl font-bold mt-6 ">Flashcard Study App</h1>
 
       <ProgressBar
         currentIndex={currentIndex}
         totalCards={filteredFlashcards.length}
       />
-      <CategoryFilter
-        categories={categories}
-        category={selectedCategory}
-        onCatChange={handleCategoryFilter}
-      />
+      <div className="flex flex-col justify-center items-center sm:flex-row gap-5  mt-10 mb-10 max-w-2xl mx-auto">
+        <CategoryFilter
+          categories={categories}
+          category={selectedCategory}
+          onCatChange={handleCategoryFilter}
+        />
+        <DifficultyFilter
+          difficulty={selectedDifficulty}
+          onDiffChange={handleDifficultyFilter}
+        />
+      </div>
       <FlashcardViewer
         card={currentCard}
         isAnswerVisible={isAnswerVisible}
@@ -118,7 +149,7 @@ function App() {
         totalCards={filteredFlashcards.length}
       />
       <FlashcardForm onAdd={handleAdd} />
-    </>
+    </div>
   );
 }
 

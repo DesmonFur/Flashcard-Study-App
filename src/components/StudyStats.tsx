@@ -15,7 +15,7 @@ export function StudyStats({
   const accuracy =
     totalAnswered === 0 ? 0 : Math.round((correctCount / totalAnswered) * 100);
   return (
-    <Card className="mx-auto mt-6 mb-6 w-full max-w-2xl">
+    <Card className="mx-auto mt-6 mb-6 w-full max-w-2xl ">
       {" "}
       <CardContent className="grid grid-cols-2 gap-4 text-center sm:grid-cols-4">
         <div>

@@ -7,3 +7,4 @@ export type Flashcard = {
   category: string;
   difficulty: Difficulty;
 };
+export type DifficultyFilterValue = Difficulty | "all";

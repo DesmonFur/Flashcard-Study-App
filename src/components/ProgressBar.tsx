@@ -13,7 +13,7 @@ export function ProgressBar({
   const progress =
     totalCards === 0 ? 0 : Math.round((currentCardNumber / totalCards) * 100);
   return (
-    <div className="space-y-2 mb-20 max-w-xl mx-auto">
+    <div className="space-y-2 mb-20 max-w-xl mx-auto p-6">
       <div className="flex items-center justify-between text-sm ">
         <p>
           Card {currentCardNumber} of {totalCards}
