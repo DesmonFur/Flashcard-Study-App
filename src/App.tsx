@@ -7,6 +7,7 @@ import { ProgressBar } from "./components/ProgressBar";
 import { FlashcardForm } from "./components/FlashcardForm";
 import "./App.css";
 import { Button } from "./components/ui/Button";
+import { EmptyState } from "./components/EmptyState";
 
 function App() {
   const [flashcards, setFlashcards] = useState<Flashcard[]>(
@@ -41,6 +42,18 @@ function App() {
 
   function handleAdd(flashcard: Flashcard): void {
     setFlashcards((prev) => [...prev, flashcard]);
+  }
+
+  if (flashcards.length === 0) {
+    return (
+      <>
+        <EmptyState
+          title="No flashcards yet"
+          description="Add your first flashcard to start studying."
+        />
+        <FlashcardForm onAdd={handleAdd} />
+      </>
+    );
   }
   if (isSessionComplete)
     return (
