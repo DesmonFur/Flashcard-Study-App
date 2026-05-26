@@ -60,47 +60,46 @@ function App() {
   }
 
   function handleAdd(flashcard: Flashcard): void {
-    const newFlashCard: Flashcard = {
-      id: crypto.randomUUID(),
-      question: flashcard.question,
-      answer: flashcard.answer,
-      category: flashcard.category,
-      difficulty: flashcard.difficulty,
-    };
-    setFlashcards((prev) => [...prev, newFlashCard]);
+    setFlashcards((prev) => [...prev, flashcard]);
+  }
+
+  function resetSession(): void {
+    setCurrentIndex(0);
+    setIsAnswerVisible(false);
+    setCorrectCount(0);
+    setWrongCount(0);
   }
 
   function handleCategoryFilter(category: string): void {
     setSelectedCategory(category);
-    setCurrentIndex(0);
-    setIsAnswerVisible(false);
-    setCorrectCount(0);
-    setWrongCount(0);
+    resetSession();
   }
   function handleDifficultyFilter(difficulty: DifficultyFilterValue): void {
     setSelectedDifficulty(difficulty);
-    setCurrentIndex(0);
-    setIsAnswerVisible(false);
-    setCorrectCount(0);
-    setWrongCount(0);
+    resetSession();
   }
 
   function handleDelete(id: string): void {
     setFlashcards((prev) => prev.filter((card) => card.id !== id));
-    setCurrentIndex(0);
-    setIsAnswerVisible(false);
-    setCorrectCount(0);
-    setWrongCount(0);
+    resetSession();
   }
 
   if (flashcards.length === 0 || filteredFlashcards.length === 0) {
     return (
       <div className="p-4">
-        <EmptyState
-          title="No flashcards yet"
-          description="Add your first flashcard to start studying."
-        />
-        <div className="flex flex-col justify-center items-center sm:flex-row gap-5  mt-10 mb-10 max-w-2xl mx-auto">
+        {flashcards.length === 0 ? (
+          <EmptyState
+            title="No flashcards yet"
+            description="Add your first flashcard to start studying."
+          />
+        ) : (
+          <EmptyState
+            title="Nothing found"
+            description="Change your filters to find more cards."
+          />
+        )}
+
+        <div className="mx-auto mt-10 mb-10 flex max-w-2xl flex-col items-center justify-center gap-5 sm:flex-row">
           <CategoryFilter
             categories={categories}
             category={selectedCategory}
@@ -118,7 +117,7 @@ function App() {
   if (isSessionComplete)
     return (
       <div className="p-4">
-        <h1 className="text-3xl font-bold mt-6">Study complete!</h1>
+        <h1 className="mt-6 text-3xl font-bold">Study complete!</h1>
         <StudyStats
           correctCount={correctCount}
           wrongCount={wrongCount}
@@ -136,13 +135,13 @@ function App() {
 
   return (
     <div className="p-4">
-      <h1 className="text-3xl font-bold mt-6 ">Flashcard Study App</h1>
+      <h1 className="mt-6 text-3xl font-bold">Flashcard Study App</h1>
 
       <ProgressBar
         currentIndex={currentIndex}
         totalCards={filteredFlashcards.length}
       />
-      <div className="flex flex-col justify-center items-center sm:flex-row gap-5  mt-10 mb-10 max-w-2xl mx-auto">
+      <div className="mx-auto mt-10 mb-10 flex max-w-2xl flex-col items-center justify-center gap-5 sm:flex-row">
         <CategoryFilter
           categories={categories}
           category={selectedCategory}

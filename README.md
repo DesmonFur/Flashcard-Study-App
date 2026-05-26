@@ -1,74 +1,66 @@
-# React + TypeScript + Vite
+# Flashcard Study App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small React practice app for studying flashcards. The goal of this project was to rebuild comfort with modern React patterns, TypeScript, form validation, local persistence, and shadcn-style UI components.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Study flashcards one at a time
+- Reveal answers before marking a card correct or wrong
+- Track correct answers, wrong answers, and accuracy
+- Add new flashcards with validated form fields
+- Delete existing flashcards
+- Filter cards by category and difficulty
+- Show empty states for no cards and no matching filters
+- Persist flashcards in `localStorage`
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- shadcn/Radix UI components
+- React Hook Form
+- Zod
+- localStorage via a custom `useLocalStorage` hook
 
-## Expanding the ESLint configuration
+## What This Project Practiced
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Parent-owned state and prop-driven child components
+- Derived state for filtering flashcards
+- Immutable add/delete updates
+- Reusable UI primitives
+- Zod schemas with React Hook Form
+- Radix/shadcn Select usage with custom components
+- TypeScript union types for difficulty values
+- Basic persistence with a reusable local storage hook
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Install dependencies:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Start the dev server:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
-# Flashcard-Study-App
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+## Notes
+
+This is a practice app, not a large reference architecture. The code intentionally stays small and direct while still using real React patterns that can scale into larger projects when needed.

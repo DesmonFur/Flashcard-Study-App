@@ -22,7 +22,7 @@ export function DifficultyFilter({
       <Label htmlFor="difficulty-filter">Difficulty:</Label>
 
       <Select value={difficulty} onValueChange={onDiffChange}>
-        <SelectTrigger className="w-full" id="difficulty">
+        <SelectTrigger className="w-full" id="difficulty-filter">
           <SelectValue placeholder="Select difficulty" />
         </SelectTrigger>
 

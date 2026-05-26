@@ -28,13 +28,13 @@ export function FlashcardCard({
     <Card className="mx-auto mt-6 mb-6 w-full max-w-2xl">
       <CardHeader>
         <Badge className="ml-auto">{flashcard.difficulty}</Badge>
-        <CardTitle className="wrap-break-word text-2xl sm:text-4xl">
+        <CardTitle className="text-2xl break-words sm:text-4xl">
           {flashcard.question}
         </CardTitle>
       </CardHeader>
       <CardContent>
         {isAnswerVisible && (
-          <p className="text-2xl font-semibold mb-2.5">{flashcard.answer}</p>
+          <p className="mb-2.5 text-2xl font-semibold">{flashcard.answer}</p>
         )}
         <Badge>{flashcard.category}</Badge>
       </CardContent>

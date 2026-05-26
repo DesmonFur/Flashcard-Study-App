@@ -46,10 +46,15 @@ export function FlashcardForm({ onAdd }: FlashcardFormProps): JSX.Element {
   });
 
   function onSubmit(data: FlashcardFormValues): void {
-    onAdd({
+    const newFlashCard: Flashcard = {
       id: crypto.randomUUID(),
-      ...data,
-    });
+
+      question: data.question,
+      answer: data.answer,
+      category: data.category,
+      difficulty: data.difficulty,
+    };
+    onAdd(newFlashCard);
 
     reset();
   }
