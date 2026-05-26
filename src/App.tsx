@@ -45,7 +45,7 @@ function App() {
   if (isSessionComplete)
     return (
       <>
-        <h1 className="text-3xl font-bold">Study complete!</h1>
+        <h1 className="text-3xl font-bold mt-6">Study complete!</h1>
         <StudyStats
           correctCount={correctCount}
           wrongCount={wrongCount}
@@ -58,9 +58,7 @@ function App() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold ">Flashcard Study App</h1>
-
-      <ProgressBar currentIndex={currentIndex} totalCards={flashcards.length} />
+      <h1 className="text-3xl font-bold mt-6 ">Flashcard Study App</h1>
 
       <FlashcardViewer
         card={currentCard}
@@ -68,6 +66,7 @@ function App() {
         onRevealAnswer={handleRevealAnswer}
         onAnswer={handleAnswer}
       />
+      <ProgressBar currentIndex={currentIndex} totalCards={flashcards.length} />
       <FlashcardForm onAdd={handleAdd} />
     </>
   );
