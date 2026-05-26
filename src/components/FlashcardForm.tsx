@@ -15,6 +15,7 @@ import {
 
 import { Label } from "./ui/Label";
 import { FormError } from "./ui/FormError";
+import { Textarea } from "./ui/Textarea";
 type FlashcardFormProps = {
   onAdd: (flashcard: Flashcard) => void;
 };
@@ -56,31 +57,28 @@ export function FlashcardForm({ onAdd }: FlashcardFormProps): JSX.Element {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex w-full max-w-md flex-col gap-1 mx-auto "
+      className="mx-auto flex w-full max-w-md flex-col gap-4"
     >
       <h2 className="text-xl font-semibold">Add Flashcard</h2>
       <div className="flex flex-col gap-1">
         <Label htmlFor="question">Question:</Label>
         <Input id="question" {...register("question")} />
-        {errors.question && (
-          <FormError message={errors.question.message}></FormError>
-        )}
+
+        <FormError message={errors.question?.message}></FormError>
       </div>
 
       <div className="flex flex-col gap-1">
         <Label htmlFor="answer">Answer:</Label>
-        <Input id="answer" {...register("answer")} />
-        {errors.answer && (
-          <FormError message={errors.answer.message}></FormError>
-        )}
+        <Textarea id="answer" {...register("answer")}></Textarea>
+
+        <FormError message={errors.answer?.message}></FormError>
       </div>
 
       <div className="flex flex-col gap-1">
         <Label htmlFor="category">Category:</Label>
         <Input id="category" {...register("category")} />
-        {errors.category && (
-          <FormError message={errors.category.message}></FormError>
-        )}
+
+        <FormError message={errors.category?.message}></FormError>
       </div>
 
       <div className="flex flex-col gap-1">
