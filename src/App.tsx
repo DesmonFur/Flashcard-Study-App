@@ -44,15 +44,20 @@ function App() {
   }
   if (isSessionComplete)
     return (
-      <>
+      <div>
         <h1 className="text-3xl font-bold mt-6">Study complete!</h1>
         <StudyStats
           correctCount={correctCount}
           wrongCount={wrongCount}
           totalCards={flashcards.length}
         />
+        <ProgressBar
+          currentIndex={currentIndex - 1}
+          totalCards={flashcards.length}
+        />
+
         <Button onClick={handleRestart}>Restart Session</Button>
-      </>
+      </div>
     );
   const currentCard = flashcards[currentIndex];
 
@@ -60,13 +65,13 @@ function App() {
     <>
       <h1 className="text-3xl font-bold mt-6 ">Flashcard Study App</h1>
 
+      <ProgressBar currentIndex={currentIndex} totalCards={flashcards.length} />
       <FlashcardViewer
         card={currentCard}
         isAnswerVisible={isAnswerVisible}
         onRevealAnswer={handleRevealAnswer}
         onAnswer={handleAnswer}
       />
-      <ProgressBar currentIndex={currentIndex} totalCards={flashcards.length} />
       <FlashcardForm onAdd={handleAdd} />
     </>
   );
